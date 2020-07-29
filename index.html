@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Snake game</title>
+  <title>Snake Game</title>
   
 
 </head>
@@ -17,23 +17,37 @@
 </head>
 <body>
 
-	<h1>Welcome to Snake who likes to eat!</h1>
+	<h1>This is a who Snake that likes to eat!</h1>
 <p>
-	Press start and eat the pizza <span>&#x1F355;</span>!
+	Press start and eat as many pizzas as you can. <span>&#x1F355;</span>!
+	<br>
 	<button id="btn">START</button>
 	<button id="clr">Clear</button>
 </p>
 <p id="score"></p>
+<p id="speed"></p>
 
 	<canvas id="gameCanvas" width="300" height="300">
 	<script type="text/javascript" src="snake3.js"></script>
 	<canvas>
+	
+	<p id="pre">            <u>Tutorial</u>:
+		Use the keyboard arrows to move the hungry snake around.
+		The speed of the snake as well as its size increases after eating every slice of 🍕!
+		Made with only Vanilla JS by Saurav <a href="https://github.com/sauravabc16"> (sauravabc16)</a>.
+
+		<!-- <u>Logic</u>:
+			*) If the ball is too close to the border it will change its color to Red.
+			*) If the ball is too close to the border it will automatically stick to it.
+			*) If the ball is too far from the border it will speed up. -->
+	</p>
+	
 
 
 </body>
 </html>
 <!-- partial -->
-  <script  src="./script.js"></script>
+  <script  src="script.js"></script>
 
 </body>
 </html>

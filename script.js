@@ -7,6 +7,7 @@ class Game {
     this.score = 0;
     this.food = this.initFood();
     this.scoreBox = document.getElementById("score");
+    this.speedBox = document.getElementById("speed");
     this.moving = false;
     this.motion = null;
     this.speed = 250;
@@ -65,6 +66,11 @@ class Game {
     this.score += 1;
     this.scoreBox.innerText = this.score;
   }
+
+  updateSpeed() {
+    this.speed +=20;
+    this.speedBox.innerText =this.speed;
+  }
   
 }
 
@@ -86,12 +92,12 @@ function advanceSnake(sX,sY){
     
     // CONDITIONS FOR GAME OVER
 
-    // x = 290
-    // y = 290
-    // x = 0
-    // y = 0
+    // x = 300
+    // y = 300
+    // x = -10
+    // y = -10
 
-    if(head.y === 0 || head.x === 0 || head.x === 290 || head.y ===290 ){  
+    if(head.y === -10 || head.x === -10 || head.x === 300 || head.y ===300 ){  
         console.log("game over");  
         clearInterval(gameState.motion);
         gameState.snake.unshift(head);
