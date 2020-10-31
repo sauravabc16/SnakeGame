@@ -114,10 +114,10 @@ function advanceSnake(sX,sY){
         gameState.food = gameState.initFood();
         gameState.updateScore();
 
-        // INCREASE SPEED
+        // INCREASE SPEED INCASE THE SNAKE GRABS FoOD
         clearInterval(gameState.motion);
 
-        gameState.speed -= 20;
+        gameState.speed -= 19;
         gameState.motion = setInterval(startMoving, gameState.speed);
     }           
 }
@@ -125,7 +125,7 @@ function advanceSnake(sX,sY){
 // Add event listener to arrow keys
 document.addEventListener("keydown", direction)
 
-// ON KEYDOWN Get new coordinates to call advance funct
+// ON KEYDOWN Get new coordinates to call advance function
 function direction(event) {
   
   const updateDirection = (nx, ny, direction) => {
