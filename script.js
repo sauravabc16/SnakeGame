@@ -60,7 +60,7 @@ class Game {
       {x: 130, y: 150}
     ];
   }
-  
+//when the user eats a slice of pizza, update the score  
   updateScore() {
     this.score += 1;
     this.scoreBox.innerText = this.score;
