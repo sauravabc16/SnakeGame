@@ -15,6 +15,13 @@ class Game {
     this.direction = "RIGHT";
     this.snake = this.snakeInit();
   }
+
+  gameOver() {
+    clearInterval(this.motion);
+    document.getElementById("gameOverScreen").style.display = "flex";
+    document.getElementById("finalScore").innerText = "Your score: " + this.score;
+  }
+  
   
   clearCanvas() {
     const c = this.canvas;
@@ -73,54 +80,45 @@ let gameState = null;
 function startGame(gs) {
   gameState = new Game();
   gameState.initGame();
+
+  // Adding event listener for the restart button.
+  document.getElementById("restartButton").addEventListener("click", function() {
+    document.getElementById("gameOverScreen").style.display = "none";
+    startGame(gameState);
+  });
 }
 
 startGame(gameState);
 
 // Move the snake
-function advanceSnake(sX,sY){    
-    const head = {
-        x: gameState.snake[0].x + sX, 
-        y: gameState.snake[0].y + sY
-    }
-    
-    // CONDITIONS FOR GAME OVER
+function advanceSnake(sX,sY) {    
+  const head = {
+    x: gameState.snake[0].x + sX, 
+    y: gameState.snake[0].y + sY
+  }
+  
+  // New game over conditions
+  if(head.y < 0 || head.x < 0 || head.x >= 300 || head.y >= 300 || gameState.snake.some(snakePart => snakePart.x === head.x && snakePart.y === head.y)) {
+    gameState.gameOver();
+    return;
+  } 
 
-    // x = 290
-    // y = 290
-    // x = 0
-    // y = 0
+  gameState.snake.unshift(head);
 
-    if(head.y === 0 || head.x === 0 || head.x === 290 || head.y ===290 ){  
-        console.log("game over");  
-        clearInterval(gameState.motion);
-        gameState.snake.unshift(head);
-        gameState.snake.pop(); 
-      
-        // SHOW GAME OVER MESSAGE
-        gameState.clearCanvas();
-        startGame();
-        
-    } else { 
-        gameState.snake.unshift(head);
-        gameState.snake.pop();    
-    }   
+  if(gameState.snake[0].x === gameState.food.x && gameState.snake[0].y === gameState.food.y) {
+    // Snake ate the food
+    gameState.food = gameState.initFood();
+    gameState.updateScore();
+    gameState.speed -= 5;
+  } else {
+    gameState.snake.pop(); // If the food wasn't eaten, remove the last part of the snake.
+  }     
 
-    if(gameState.snake[0].x=== gameState.food.x
-       && gameState.snake[0].y=== gameState.food.y) {
-        console.log("WIN");
-        gameState.snake.unshift(head);
-        //update score
-        gameState.food = gameState.initFood();
-        gameState.updateScore();
-
-        // INCREASE SPEED INCASE THE SNAKE GRABS FoOD
-        clearInterval(gameState.motion);
-
-        gameState.speed -= 19;
-        gameState.motion = setInterval(startMoving, gameState.speed);
-    }           
+  // Reset the game motion interval
+  clearInterval(gameState.motion);
+  gameState.motion = setInterval(startMoving, gameState.speed);
 }
+           
 
 // Add event listener to arrow keys
 document.addEventListener("keydown", direction)
@@ -153,6 +151,8 @@ function direction(event) {
   }  
   console.log(gameState);
 }
+
+
 
 function startMoving(){
   if(!!gameState) {
