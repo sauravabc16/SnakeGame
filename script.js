@@ -157,12 +157,15 @@ function direction(event) {
 function startMoving(){
   if(!!gameState) {
     const c = gameState.canvas;
-    advanceSnake(gameState.newDx, gameState.newDy);	
-    gameState.context.clearRect(0,0, c.width, c.height);	
+    advanceSnake(gameState.newDx, gameState.newDy);
+    gameState.context.clearRect(0,0, c.width, c.height);
     gameState.context.fillStyle = 'white';
-    gameState.context.fillRect(0, 0, c.width, c.height);  
+    gameState.context.fillRect(0, 0, c.width, c.height);
+    // draw the border
+    gameState.context.strokeStyle = 'black';
+    gameState.context.lineWidth = 5;
     gameState.context.strokeRect(0, 0, c.width, c.height);
     gameState.placeFood();
     gameState.drawSnake();
-  }						
+  }
 }
